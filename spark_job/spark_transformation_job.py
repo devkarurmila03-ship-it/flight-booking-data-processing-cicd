@@ -41,12 +41,12 @@ def main(env,bq_project,bq_dataset,transformed_table,route_insights_table,origin
 
         #Aggrefations for insights
         route_insights = transformed_data.groupBy("route").agg(
-            count("*").alias("total_bookiungs"),
+            count("*").alias("total_bookings"),
             avg("flight_duration").alias("avg_flight_duration"),
             avg("length_of_stay").alias("avg_stay_length")
         )
 
-        booking_origin_insights = transformed_data.groupBy("booking_origin").agg(
+        origin_insights = transformed_data.groupBy("booking_origin").agg(
             count("*").alias("total_bookings"),
             avg("booking_success_rate").alias("success_rate"),
             avg("purchase_lead").alias("avg_purchase_lead")   
@@ -59,7 +59,7 @@ def main(env,bq_project,bq_dataset,transformed_table,route_insights_table,origin
         route_insights.write.format("bigquery").option("table",f"{bq_project}:{bq_dataset}.{route_insights_table}").option("writeMethod","direct").mode("overwrite").save()
 
         logger.info(f"writing transformed data to bigquery table : {bq_project}:{bq_dataset}.{origin_insights_table}")
-        route_insights.write.format("bigquery").option("table",f"{bq_project}:{bq_dataset}.{origin_insights_table}").option("writeMethod","direct").mode("overwrite").save()
+        origin_insights.write.format("bigquery").option("table",f"{bq_project}:{bq_dataset}.{origin_insights_table}").option("writeMethod","direct").mode("overwrite").save()
         
         logger.info("Data writen to bigquery successfully")
     
