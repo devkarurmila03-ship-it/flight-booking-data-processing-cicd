@@ -48,12 +48,12 @@ jobs:
 
       - name: Upload spark job to gcs
         run: |
-          gsutil cp spark_job/spark_transformation_job.py gs://airflow-projects-bucket/flight-booking-analysis/spark-job/
+          gsutil cp spark_job/spark_transformation_job.py gs://airflow-projects-bucket-kd/flight-booking-analysis/spark-job/
 
       - name: Upload airflow dag to dev enviroment
         run: |
-          gcloud composer enviroments storage dags import --enviroment kd-composer-dev --location us-central1 --source airflow_job/airflow_job.py 
+          gcloud composer environments storage dags import --environment kd-composer-dev --location us-central1 --source airflow_job/airflow_job.py 
 
       - name: Upload main.py to GCS
         run: |
-          gsutil cp src/main.py gs://$BUCKET_NAME/products/main.py
+          gsutil cp src/main.py gs://airflow-projects-bucket-kd/products/main.py
