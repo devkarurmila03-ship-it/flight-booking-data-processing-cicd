@@ -43,7 +43,7 @@ def main(env,bq_project,bq_dataset,transformed_table,route_insights_table,origin
         route_insights = transformed_data.groupBy("route").agg(
             count("*").alias("total_bookiungs"),
             avg("flight_duration").alias("avg_flight_duration"),
-            avg("lenth_of_stay").alias("avg_stay_length")
+            avg("length_of_stay").alias("avg_stay_length")
         )
 
         booking_origin_insights = transformed_data.groupBy("booking_origin").agg(
