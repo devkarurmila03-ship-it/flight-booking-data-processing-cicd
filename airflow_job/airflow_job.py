@@ -51,31 +51,30 @@ with DAG(
 
     #task 2 : Submit pyspark jobn to dataproc serverless,
     batch_details = {
-        "pyspark_batch" : {
-            "main_python_file_uri": f"gs://{gcs_bucket}/flight-booking-analysis/spark-job/spark_transformation_job.py",
-            "python_file_uris": [],
-            "jar_file_uris": [],
-            "args": [
-                f"--env={env}",
-                f"--bq_project={bq_project}",
-                f"--bq_dataset={bq_dataset}",
-                f"--transformed_table={transformed_table}",
-                f"--route_insights_table={route_insights_table}",
-                f"--origin_insights_table={origin_insights_table}"
-            ]
-        },
-        "runtime_config" : {
-            "version": "2.2",
-        },
-        "enviroment_config":{
-            "execution_config": {
-                "service_account": "336632331058-compute@developer.gserviceaccount.com",
-                "network_uri": "projects/project-b33d6da0-bcfc-471f-99c/global/networks/default",
-                "subnetwork_uri": "projects/project-b33d6da0-bcfc-471f-99c/regions/us-central1/subnetworks/default"
-            }
-        },
-    }
-
+    "pyspark_batch": {
+        "main_python_file_uri": f"gs://{gcs_bucket}/flight-booking-analysis/spark-job/spark_transformation_job.py",
+        "python_file_uris": [],
+        "jar_file_uris": [],
+        "args": [
+            f"--env={env}",
+            f"--bq_project={bq_project}",
+            f"--bq_dataset={bq_dataset}",
+            f"--transformed_table={transformed_table}",
+            f"--route_insights_table={route_insights_table}",
+            f"--origin_insights_table={origin_insights_table}"
+        ]
+    },
+    "runtime_config": {
+        "version": "2.2",
+    },
+    "environment_config": {  # FIXED typo
+        "execution_config": {
+            "service_account": "github-deployer@project-b33d6da0-bcfc-471f-99c.iam.gserviceaccount.com",
+            "network_uri": "projects/project-b33d6da0-bcfc-471f-99c/global/networks/default",
+            "subnetwork_uri": "projects/project-b33d6da0-bcfc-471f-99c/regions/us-central1/subnetworks/default"
+        }
+    },
+}
     pyspark_task = DataprocCreateBatchOperator(
         task_id = 'run_spark_job_on_dataproc_serverless',
         batch=batch_details,
