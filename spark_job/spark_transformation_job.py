@@ -69,7 +69,7 @@ def main(env,bq_project,bq_dataset,transformed_table,route_insights_table,origin
     finally:
         spark.stop()
         logger.info("Spark session stopped")
-
+ 
 if __name__ == "__main__":
     #Parse command-line arguments
     parser = argparse.ArgumentParser(description="Process flight booking data and write to bigquery")
