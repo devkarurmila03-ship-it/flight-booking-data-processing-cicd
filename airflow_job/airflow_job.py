@@ -45,7 +45,7 @@ with DAG(
         object=f"flight-booking-analysis/source-{env}/flight_booking.csv",
         google_cloud_conn_id = "google_cloud_default",
         timeout = 300,
-        poke_interval=30 #time between checks,
+        poke_interval=30, #time between checks,
         mode="poke"
     )
 
