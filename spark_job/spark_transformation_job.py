@@ -55,12 +55,11 @@ def main(env, bq_project, bq_dataset, transformed_table, route_insights_table, o
         # Write transformed data to BigQuery
         logger.info(f"Writing route insights to BigQuery: {bq_project}.{bq_dataset}.{route_insights_table}")
         route_insights.write.format("bigquery") \
-            .option("table", f"{bq_project}.{bq_dataset}.{route_insights_table}") \
-            .option("writeMethod", "direct") \
-            .option("temporaryGcsBucket", "airflow-projects-bucket-kd") \
-            .option("allowFieldAddition", "true") \
-            .mode("append") \
-            .save()
+        .option("table", f"{bq_project}.{bq_dataset}.{route_insights_table}") \
+        .option("temporaryGcsBucket", "airflow-projects-bucket-kd") \
+        .option("allowFieldAddition", "true") \
+        .mode("append") \
+        .save()
 
         logger.info(f"Writing origin insights to BigQuery: {bq_project}.{bq_dataset}.{origin_insights_table}")
         origin_insights.write.format("bigquery") \
