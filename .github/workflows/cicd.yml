@@ -43,11 +43,8 @@ jobs:
 
       - name: Import Variables into Airflow-Dev
         run: |
-          gcloud composer environments run kd-composer-dev \
-  --location us-central1 \
-  variables import -- \
-  /home/airflow/gcs/data/dev/variables.json
-  
+          gcloud composer environments run kd-composer-dev --location us-central1 variables import --/home/airflow/gcs/data/dev/variables.json
+
       - name: Upload spark job to gcs
         run: |
           gsutil cp spark_job/spark_transformation_job.py gs://airflow-projects-bucket/flight-booking-analysis/spark-job/
